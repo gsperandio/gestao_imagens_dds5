@@ -1,7 +1,7 @@
 const db = {
     host:'localhost',
     user:'root',
-    passwoord:'',
+    password:'',
     database:'painel'
 }
 
