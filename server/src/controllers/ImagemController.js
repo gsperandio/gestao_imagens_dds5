@@ -1,5 +1,5 @@
 import path from 'path';
-import { createImagem, readImagem, readOneImage, updateImagem, deleteImagem } from '../models/ImagemModel.js';
+import { createImagem, readImagem, showOneImage, updateImagem, deleteImagem } from '../models/ImagemModel.js';
 import url from 'url';
 
 const __filename = url.fileURLToPath(import.meta.url);
@@ -31,7 +31,7 @@ export async function criarImagem(req,res) {
     }
 }
 
-export async function mostrarImagens(req,res) {
+export async function downloadImagem(req,res) {
     console.log('ImagemController :: Mostrando lista de imagens')
     
     try {
@@ -47,7 +47,7 @@ export async function mostrarUmaImagem(req,res) {
     const {id_imagem} = req.params;
 
     try {
-        const [status, resposta] = await readOneImage(id_imagem);
+        const [status, resposta] = await showOneImage(id_imagem);
         res.status(status).json(resposta);
     } catch (error) {
         res.status(500).json({message:'ImagemController ::  Erro'});
