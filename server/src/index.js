@@ -6,6 +6,8 @@ const app = express();
 const porta = 5000;
 
 import {criarImagem, deletarImagem, editarImagem, mostrarImagem, downloadImagem, mostrarUmaImagem } from './controllers/ImagemController.js';
+import { criarUsuario, logarUsuario } from './controllers/UsuarioController.js';
+import { mostrarUsuario } from './models/UsuarioModel.js';
 
 app.use(fileUpload());
 app.use(express.json());
@@ -23,6 +25,13 @@ app.get('/imagem/:id_imagem',mostrarUmaImagem);
 app.put('/imagem/:id_imagem',editarImagem);
 app.delete('/imagem/:id_imagem',deletarImagem)
 
+//CRUD usuario
+app.post('/usuario', criarUsuario);
+app.get('/usuario',mostrarUsuario);
+app.get('/usuario/id_usuario',mostrarUsuario);
+
+//Efetuar Login
+app.post('/login', logarUsuario);
 
 app.listen(porta, ()=>{
     console.log(`API Rodando na porta ${porta}`)
