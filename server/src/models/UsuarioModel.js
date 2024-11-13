@@ -36,17 +36,6 @@ export async function readUsuario(req) {
     }
 }
 
-export async function mostrarUsuario(req,res) {
-    console.log('UusarioController :: mostrarUsuario');
-
-    try {
-        const [status, resposta] = await readUsuario();
-        res.status(status).json(resposta);
-    } catch (error) {
-        res.status(500).json({message:'Erro ao mostrar usurios'})
-    }
-}
-
 export async function showOneUsuario(id_usuario) {
     console.log('UsuarioModel :: showOneUsuario');
 
@@ -55,10 +44,11 @@ export async function showOneUsuario(id_usuario) {
     const params = [id_usuario];
 
     try {
-        const [retorno] = await conexao.query(sql);
+        const [retorno] = await conexao.query(sql,params);
         if(retorno.length < 1){
             return[404, {message:'Usuario não encontrado'}];
         }else{
+            //console.log(retorno);
             return[200,retorno[0]];
         }
     } catch (error) {
@@ -67,23 +57,6 @@ export async function showOneUsuario(id_usuario) {
     }
 }
 
-export async function mostrarUmUsuario(req,res) {
-    console.log('UsuarioController :: mostrando usuario');
-
-    const {id_usuario} = req.params;
-
-    if(!id_usuario){
-        res.status(400).json({message:'id inválido'})
-    }else{
-        try {
-            const [status, resposta] = await showOneUsuario(id_usuario);
-            res.status(status).json(resposta);
-        } catch (error) {
-            res.status(500).json({message:'Erro ao mostrar um usuário'})
-        }
-    }
-
-}
 
 export async function findUserByLoginPassword(login,senha) {
     console.log('UsarioModel :: findUserByLoginPassword')
